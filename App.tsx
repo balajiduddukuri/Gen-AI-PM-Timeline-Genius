@@ -6,6 +6,7 @@ import OKRResult from './components/OKRResult';
 import TrendingSidebar from './components/TrendingSidebar';
 import PromptResult from './components/PromptResult';
 import Motivator from './components/Motivator';
+import HelpModal from './components/HelpModal';
 import { Activity, ProductContext, OKR, TrendingProject, Stage } from './types';
 import { generateOKRs, runGenericPrompt, generateCustomTimeline } from './services/geminiService';
 import { triggerHaptic } from './services/utils';
@@ -32,6 +33,7 @@ const App: React.FC = () => {
   const [promptOutput, setPromptOutput] = useState<string>('');
   const [isRunningPrompt, setIsRunningPrompt] = useState(false);
   const [showPromptResult, setShowPromptResult] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
   
   // Theme & UI State
   const [theme, setTheme] = useState<Theme>('light');
@@ -159,6 +161,16 @@ const App: React.FC = () => {
                <svg className="w-4 h-4 text-slate-400 absolute left-2.5 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
              </div>
 
+             {/* Help Button */}
+             <button
+               onClick={() => setShowHelp(true)}
+               className="w-8 h-8 flex items-center justify-center rounded-full text-brand-600 dark:text-brand-400 hover:bg-brand-50 dark:hover:bg-brand-900/50 transition-colors focus:ring-2 focus:ring-brand-500"
+               title="Help & Documentation"
+               aria-label="Open Help"
+             >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+             </button>
+
              {/* Theme Toggle */}
              <button 
                onClick={toggleTheme}
@@ -256,6 +268,11 @@ const App: React.FC = () => {
           isLoading={isRunningPrompt}
           onClose={() => setShowPromptResult(false)}
         />
+      )}
+
+      {/* Help Modal */}
+      {showHelp && (
+        <HelpModal onClose={() => setShowHelp(false)} />
       )}
     </div>
   );
