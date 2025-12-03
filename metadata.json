@@ -1,0 +1,5 @@
+{
+  "name": "Gen AI PM Timeline Genius",
+  "description": "An interactive Gen AI PM timeline that generates OKRs and Mega Prompts for delivery stages using Gemini AI.",
+  "requestFramePermissions": []
+}
